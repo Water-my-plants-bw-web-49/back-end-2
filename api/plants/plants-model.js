@@ -24,12 +24,9 @@ function findBy(filter) {
   return db("plants").where(filter); // {username: "foo"}
 }
 
-function insert(plant) {
-  return db("plants")
-    .insert(plant)
-    .then(([id]) => {
-      return getPlantById(id);
-    });
+function insert(newPlant) {
+  const [plant] = await db('plants').insert(newPlant, ['id', 'plant', 'nickname', 'species', 'h2ofrequency'])
+  return plant
 }
 
 module.exports = {
