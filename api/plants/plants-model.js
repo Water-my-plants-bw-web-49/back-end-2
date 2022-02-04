@@ -4,9 +4,8 @@ function getPlants() {
   return db("plants");
 }
 
-async function getPlantById(plant_id) {
-  const plantRows = await db("plants").select().where("id", plant_id);
-  return plantRows;
+async function getPlantById(id) {
+  return db('plants').where({id}).first()
 }
 
 async function deletePlant(id) {
@@ -24,7 +23,7 @@ function findBy(filter) {
   return db("plants").where(filter); // {username: "foo"}
 }
 
-function insert(newPlant) {
+async function insert(newPlant) {
   const [plant] = await db('plants').insert(newPlant, ['id', 'plant', 'nickname', 'species', 'h2ofrequency'])
   return plant
 }
